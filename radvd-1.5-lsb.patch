@@ -1,0 +1,29 @@
+diff -up radvd-1.6/redhat/radvd.init.lsb radvd-1.6/redhat/radvd.init
+--- radvd-1.6/redhat/radvd.init.lsb	2010-03-05 13:14:47.000000000 +0100
++++ radvd-1.6/redhat/radvd.init	2010-06-09 09:42:37.477396989 +0200
+@@ -12,7 +12,7 @@
+ #		based on these advertisements.
+ #
+ # processname: radvd
+-# pidfile: /var/run/radvd.pid
++# pidfile: /var/run/radvd/radvd.pid
+ # config: /etc/radvd.conf
+ # config: /etc/sysconfig/radvd
+ 
+@@ -32,6 +32,7 @@
+ RETVAL=0
+ PROG="radvd"
+ LOCKFILE=/var/lock/subsys/radvd
++PIDFILE=/var/run/radvd/radvd.pid
+ 
+ # See how we were called.
+ case "$1" in
+@@ -64,7 +65,7 @@ case "$1" in
+ 	[ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+ 	;;
+   status)
+-	status radvd
++	status -p $PIDFILE radvd
+ 	RETVAL=$?
+ 	;;
+   restart)
